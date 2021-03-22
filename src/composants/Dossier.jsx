@@ -2,12 +2,27 @@ import './Dossier.scss';
 import { IconButton } from '@material-ui/core';
 import SortIcon from '@material-ui/icons/Sort';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import { useState } from 'react';
+
 export default function Dossier({id, nom, couleur, datemodif, couverture}) {
+
+  const [anchor, setAnchor] = useState(null);
+  
+  const openMenu = (event) => {
+    setAnchor(event.currentTarget);
+  };
+
+  const closeMenu = (event) => {
+    setAnchor(null);
+  };
+
   return (
     <article className="Dossier" style={{backgroundColor: couleur}}>
       <div className="couverture">
-        <IconButton className="deplacer" aria-label="déplacer" disableRipple={true}>
-          <SortIcon />
+        <IconButton  className="deplacer" aria-label="déplacer" disableRipple={true}>
+          <SortIcon></SortIcon>
         </IconButton>
         <img src={couverture} alt={nom}/>
       </div>
@@ -15,9 +30,13 @@ export default function Dossier({id, nom, couleur, datemodif, couverture}) {
         <h2>{nom}</h2>
         <p>Modifié : {formaterDate(datemodif)}</p>
       </div>
-      <IconButton className="modifier" aria-label="modifier" size="small">
+      <IconButton onClick={openMenu} className="modifier" aria-label="modifier" size="small">
         <MoreVertIcon />
       </IconButton>
+      <Menu anchorEl={anchor} keepMounted open={Boolean(anchor)} onClose={closeMenu}>
+            <MenuItem onClick={closeMenu} >Modifier</MenuItem>
+            <MenuItem onClick={closeMenu}>Supprimer</MenuItem>
+      </Menu>
     </article>
   );
 }
