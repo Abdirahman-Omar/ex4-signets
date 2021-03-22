@@ -2,11 +2,11 @@ import './ListeDossiers.scss';
 import Dossier from './Dossier';
 import { firestore } from '../firebase';
 import { useEffect, useState } from 'react';
+import DossierVide from "./DossierVide";
 
-export default function ListeDossiers({utilisateur, etatDossiers}) {
+export default function ListeDossiers({ utilisateur, etatDossiers }) {
   // État des dossiers (notez que cet état est défini dans le composant parent "Appli", et passé ici dans les props)
   const [dossiers, setDossiers] = etatDossiers;
-
   useEffect(
     () => {
       // On crée une fonction asynchrone pour pouvoir utiliser la syntaxe await sur les requêtes asynchrones à Firestore
@@ -19,7 +19,7 @@ export default function ListeDossiers({utilisateur, etatDossiers}) {
         reponse.forEach(
           // ... et pour chaque doc dans la réponse on ajoute un objet dans tabDossiers
           doc => {
-            tabDossiers.push({id: doc.id, ...doc.data()})
+            tabDossiers.push({ id: doc.id, ...doc.data() })
           }
           // Remarquez que le 'id' ne fait pas partie des attributs de données des documents sur Firestore, et il faut l'extraire séparément avec la propriété 'id'. Remarquez aussi l'utilisation de l'opérateur de décomposition (spread operator (...))
         );
@@ -34,9 +34,13 @@ export default function ListeDossiers({utilisateur, etatDossiers}) {
   return (
     <ul className="ListeDossiers">
       {
-        dossiers.map( 
-          dossier =>  <li key={dossier.id}><Dossier {...dossier} /></li>
-        )
+        dossiers.length > 0 ?
+          dossiers.map(
+            dossier => <li key={dossier.id}><Dossier {...dossier} /></li>
+          )
+          // Sinon :
+          :
+          <DossierVide />
       }
     </ul>
   );
