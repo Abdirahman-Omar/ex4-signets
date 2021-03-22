@@ -1,9 +1,9 @@
 import './DossierVide.scss'; 
-import { green } from '@material-ui/core/colors';
+
 
 export default function DossierVide(props) {
   return (
-    <article className="DossierVide" style={{backgroundColor: green}}>
+    <article className="DossierVide">
       <div className="couverture">
 
       </div>
