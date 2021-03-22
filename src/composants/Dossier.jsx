@@ -5,6 +5,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { useState } from 'react';
+import CouvertureDefaut from "../images/couverture.webp"
 
 export default function Dossier({id, nom, couleur, datemodif, couverture}) {
 
@@ -24,7 +25,7 @@ export default function Dossier({id, nom, couleur, datemodif, couverture}) {
         <IconButton  className="deplacer" aria-label="déplacer" disableRipple={true}>
           <SortIcon></SortIcon>
         </IconButton>
-        <img src={couverture} alt={nom}/>
+        <img src={couverture ? couverture : CouvertureDefaut  } alt={nom}/>
       </div>
       <div className="info">
         <h2>{nom}</h2>
