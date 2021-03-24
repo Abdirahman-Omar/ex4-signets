@@ -12,11 +12,11 @@ export default function Dossier({id, nom, couleur, datemodif, couverture}) {
 
   const [anchor, setAnchor] = useState(null);
   
-  const openMenu = (event) => {
+  const ouvrirMenu = (event) => {
     setAnchor(event.currentTarget);
   };
 
-  const closeMenu = (event) => {
+  const fermerMenu = (event) => {
     setAnchor(null);
   };
 
@@ -32,12 +32,12 @@ export default function Dossier({id, nom, couleur, datemodif, couverture}) {
         <h2>{nom}</h2>
         <p>Modifié : {formaterDate(datemodif)}</p>
       </div>
-      <IconButton onClick={openMenu} className="modifier" aria-label="modifier" size="small">
+      <IconButton onClick={ouvrirMenu} className="modifier" aria-label="modifier" size="small">
         <MoreVertIcon />
       </IconButton>
-      <Menu anchorEl={anchor} keepMounted open={Boolean(anchor)} onClose={closeMenu}>
-            <MenuItem onClick={closeMenu} >Modifier</MenuItem>
-            <MenuItem onClick={closeMenu}>Supprimer</MenuItem>
+      <Menu anchorEl={anchor} keepMounted open={Boolean(anchor)} onClose={fermerMenu}>
+            <MenuItem onClick={fermerMenu} >Modifier</MenuItem>
+            <MenuItem onClick={fermerMenu}>Supprimer</MenuItem>
       </Menu>
     </article>
   );
